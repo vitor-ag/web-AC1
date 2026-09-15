@@ -1,0 +1,49 @@
+<h1>Catálogo de filmes</h1>
+
+<h2>Lista de filmes:</h2>
+
+<ul>
+    @for (filme of catalogo; track $index) {
+        <li
+            (click)="filmeSelecionado = filme; visualizacao = 0"
+            [class.filme-favorito]="filme === filmeSelecionado && favorito"
+        >
+            {{filme}}
+        </li>
+    }
+</ul>
+
+@if (filmeSelecionado){
+    <p>Você selecionou: {{filmeSelecionado}}</p>
+} 
+@else {
+    <p>Nenhum filme foi selecionado</p>
+}
+
+<h2>Adicionar novo filme</h2>
+
+<input [(ngModel)]="novoFilme"
+    placeholder="Adicionar novo filme">
+
+<button
+    [disabled]="novoFilme.trim() === ''"
+    (click)="adicionarFilme()"
+>
+    Adicionar
+</button>
+
+<br>
+<h2>Favoritos</h2>
+
+<p>
+    {{ filmeSelecionado }}
+</p>
+
+<button (click)="favorito = !favorito">
+    {{ favorito ? 'Remover dos favoritos' : 'Adicionar aos favoritos' }}
+</button>
+
+<br>
+<h2>Visualizações</h2>
+<button (click)="visualizar()">Visualizar</button>
+<p>Visualizações: {{visualizacao}}</p>
